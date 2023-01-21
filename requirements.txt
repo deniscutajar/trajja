@@ -1,0 +1,6 @@
+construct~=2.10.68
+aiohttp~=3.8.3
+python-dateutil~=2.8.2
+matplotlib~=3.6.2
+pandas~=1.5.2
+seaborn~=0.12.2

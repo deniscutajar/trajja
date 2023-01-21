@@ -13,7 +13,7 @@ humidifier = AirHumidifier(ip='192.168.1.63', token='5aa0046065ab93e4ef93d0b2d49
 # status = humidifier.status()
 
 # todo - cfg describing home layout inc. what devices are in each room (+token) (YAML)
-# todo - persistence to a database
+# todo - persistence to a database through a database writer thread (use messaging queue)
 # todo - monitor (AT, RH, AQI) to database
 # todo - visualisation (flutter)
 # todo - automation
@@ -28,3 +28,4 @@ humidifier = AirHumidifier(ip='192.168.1.63', token='5aa0046065ab93e4ef93d0b2d49
 #             param
 #               unit poll
 
+# https://hackersandslackers.com/simplify-your-python-projects-configuration/

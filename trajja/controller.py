@@ -1,12 +1,28 @@
+import datetime
+import logging
 import threading
 import time
 
 from miio import MiotDevice, AirPurifierMiot
-# https://gist.github.com/wolever/e894d3a956c15044b2e4708f5e9d204d
 from threading import Event
 from abc import abstractmethod
 from typing import Type,Callable, Any
 from enum import Enum
+
+from dataclasses import dataclass
+
+
+@dataclass
+class DevicePayload:
+    """
+    Class to encapsulate the output from a smart device
+    """
+    device_id: str
+    device_ip: str
+    is_error: bool
+    is_on: bool
+    timestamp: datetime.datetime
+    parameters: dict
 
 
 class ParameterDBMap(Enum):
@@ -50,11 +66,35 @@ class DeviceMonitor(threading.Thread):
 class AirPurifierDeviceMonitor(DeviceMonitor):
 
     def __init__(self, poll_freq: int, device: AirPurifierMiot):
+        """
+
+        :type device: object
+        """
+
         super().__init__(poll_freq, device)
 
-        # self._device: AirPurifierMiot = device
+        self._device: AirPurifierMiot = device
+
+        self._parameters_keys = ['relative_humidity', 'temperature', 'target_humidity',
+                                 'water_shortage_fault']
 
     def _work(self):
-        status = self._device.status()
+        device_status = self._device.status()
 
         # parse status, save to db
+
+        device_id: response.id
+        device_ip: str
+        is_error: bool
+        is_on: bool
+        timestamp: datetime.datetime
+        parameters: dict
+
+        db.save()
+
+        if response['error']:
+            logging.warning(f"{self._device.model} at {self._device.ip} is in error")
+
+        return DevicePayload(
+            self._device.device_id, self._device.ip, response['error']
+        )
